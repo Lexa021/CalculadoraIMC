@@ -11,7 +11,6 @@ import kotlin.math.pow
 class MainActivity : AppCompatActivity() {
 
     lateinit var heightEditText: EditText
-    lateinit var title: EditText
     lateinit var weightTextView: TextView
     lateinit var minusButton: Button
     lateinit var addButton: Button
@@ -38,21 +37,35 @@ class MainActivity : AppCompatActivity() {
         setWeight()
 
         minusButton.setOnClickListener {
-            weight --
+            weight--
             setWeight()
         }
 
         addButton.setOnClickListener {
-            weight ++
+            weight++
             setWeight()
         }
 
+        /**calculateButton.setOnClickListener {
+        height = heightEditText.text.toString().toInt()
+
+        val result = weight / (height / 100f).pow(2)
+
+        resultTextView.text = result.toString()
+        }**/
         calculateButton.setOnClickListener {
-            height = heightEditText.text.toString().toInt()
+            val heightText = heightEditText.text.toString()
+            if (heightText.isNotEmpty()) {
+                val height = heightText.toDouble() / 100 // Convertir cm a metros
+                val bmi = weight / (height * height)
+                resultTextView.text = String.format("%.2f", bmi)
+                //val result = weight / (height / 100f).pow(2)
+                //resultTextView.text = result.toString()
 
-            val result = weight / (height / 100f).pow(2)
-
-            resultTextView.text = result.toString()
+                descriptionTextView.text = getBMIDescription(bmi)
+            } else {
+                heightEditText.error = "Por favor, ingrese su altura"
+            }
         }
     }
 
@@ -62,5 +75,14 @@ class MainActivity : AppCompatActivity() {
 
     fun setWeight() {
         weightTextView.text = "$weight Kg"
+    }
+
+    private fun getBMIDescription(bmi: Double): String {
+        return when {
+            bmi < 18.5 -> "Peso bajo"
+            bmi in 18.5..24.9 -> "Peso normal"
+            bmi in 25.0..29.9 -> "Sobrepeso"
+            else -> "Obesidad"
+        }
     }
 }

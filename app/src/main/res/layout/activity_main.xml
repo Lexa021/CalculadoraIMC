@@ -8,27 +8,17 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <!-- Titulo -->
-
-    <LinearLayout
+    <!-- Cabecera con Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="8dp">
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Calculadora IMC"
+        app:titleTextColor="@android:color/white"/>
 
-        <EditText
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:ems="10"
-            android:inputType="number"
-            android:text="Calculadora IMC"
-            android:textAlignment="center"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
     <!-- Altura -->
     <LinearLayout
         android:layout_width="match_parent"
